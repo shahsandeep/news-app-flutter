@@ -4,8 +4,17 @@ import 'package:news_app_figma/constants/fonts.dart';
 class CaraouselContainer extends StatelessWidget {
   final String image;
   final bool isBorderRadius;
-  const CaraouselContainer(
-      {required this.isBorderRadius, required this.image, super.key});
+  final String author;
+  final String headline;
+  final String body;
+  const CaraouselContainer({
+    required this.isBorderRadius,
+    required this.image,
+    required this.author,
+    required this.body,
+    required this.headline,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,68 +28,83 @@ class CaraouselContainer extends StatelessWidget {
             ? BorderRadius.circular(20)
             : BorderRadius.circular(0),
       ),
-      padding: const EdgeInsets.only(
-        left: 2,
-        right: 2,
-        top: 80,
-        bottom: 5,
-      ),
-      child: Padding(
-        padding: const EdgeInsets.only(
-          left: 10,
-          right: 10,
-        ),
-        child: Column(
-          children: [
-            Row(
+      child: Stack(
+        children: [
+          Container(
+            height: 400,
+            width: MediaQuery.of(context).size.width * 7,
+            decoration: BoxDecoration(
+              color: Colors.black.withOpacity(0.4),
+              borderRadius: isBorderRadius
+                  ? BorderRadius.circular(20)
+                  : BorderRadius.circular(0),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(
+              left: 10,
+              right: 10,
+              top: 30,
+            ),
+            child: Column(
               children: [
-                Text(
-                  'Author Sandeep',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
-                    fontFamily: AppFont().nunito,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    'This is News Headline',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontFamily: AppFont().neYork,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    'This is News body body body bod body body boyd',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
-                      fontFamily: AppFont().nunito,
+                Row(
+                  children: [
+                    Flexible(
+                      child: Text(
+                        author,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                          fontFamily: AppFont().nunito,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        headline,
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontFamily: AppFont().neYork,
+                            fontWeight: FontWeight.bold),
+                        maxLines: 2,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Row(
+                  children: [
+                    Flexible(
+                      child: Text(
+                        body,
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontFamily: AppFont().nunito,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ],
+                )
               ],
-            )
-          ],
-        ),
+            ),
+          ),
+        ],
       ),
     );
   }

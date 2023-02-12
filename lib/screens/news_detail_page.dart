@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:news_app_figma/models/news_model.dart';
 
 import 'package:news_app_figma/screens/home_page.dart';
 import 'package:news_app_figma/widgets/caraousel_container.dart';
 
 class NewsDetail extends StatelessWidget {
-  const NewsDetail({super.key});
+  const NewsDetail({super.key, this.article});
+
+  final Article? article;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +33,11 @@ class NewsDetail extends StatelessWidget {
             // ),
 
             CaraouselContainer(
-                isBorderRadius: false, image: HomePage.imgList[1]),
+                author: article?.author ?? 'Sandeep',
+                headline: article?.title ?? 'This is Headline',
+                body: article?.description ?? 'This is Body',
+                isBorderRadius: false,
+                image: article?.urlToImage ?? HomePage.imgList[1]),
 
             // News Detail Card
             Positioned(
@@ -58,7 +65,7 @@ class NewsDetail extends StatelessWidget {
                             padding: const EdgeInsets.all(8.0),
                             child: Card(
                               child: Text(
-                                'This is News ' * 1000,
+                                article?.content ?? 'This is News ' * 1000,
                                 textAlign: TextAlign.justify,
                               ),
                             ),
